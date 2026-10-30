@@ -41,18 +41,20 @@ services:
       - devflow_etcd_data:/etcd
 
   minio:
-    image: minio/minio:latest
+    # minio/minio 已于 2026-09 从 Docker Hub / Quay.io 下架，改用社区维护的同源 fork
+    # pgsty/minio：命令行、环境变量、S3 API 与原版一致，可直接替换。
+    image: pgsty/minio:RELEASE.2026-08-04T00-00-00Z
     container_name: devflow-ai-minio
     restart: unless-stopped
     environment:
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
-    command: minio server /minio_data --console-address ":9001"
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
+    command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - devflow_minio_data:/minio_data
+      - devflow_minio_data:/data
 
   milvus:
     image: milvusdb/milvus:v2.5.4

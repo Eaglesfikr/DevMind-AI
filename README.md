@@ -1277,7 +1277,7 @@ sentence-transformers>=5.0.0
 | PostgreSQL | `pgvector/pgvector:pg16` | 5432 |
 | Redis（可选） | `redis:7-alpine` | 6379 |
 | etcd | `quay.io/coreos/etcd:v3.5.18` | 2379 |
-| MinIO | `minio/minio:latest` | 9000 / 9001 |
+| MinIO | `pgsty/minio:RELEASE.2026-08-04T00-00-00Z`（社区 fork，原 `minio/minio` 已下架） | 9000 / 9001 |
 | Milvus | `milvusdb/milvus:v2.5.4` | 19530 / 9091 |
 
 ---
