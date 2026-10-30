@@ -389,7 +389,7 @@ def _collect_nodes(db: Session, repo_id: uuid.UUID) -> dict[str, dict[str, Any]]
     for pr in db.query(PullRequest).filter(PullRequest.repo_id == repo_id).all():
         subtitle = "merged" if pr.merged_at else pr.state  # 合并了就标 merged
         put("pull_request", str(pr.id), f"#{pr.number} {pr.title}", subtitle, {"number": pr.number, "author": pr.author, "head_branch": pr.head_branch})
-    for run in db.query(WorkflowRun).filter(WorkflowRun.repo_id == repo.id).all():
+    for run in db.query(WorkflowRun).filter(WorkflowRun.repo_id == repo_id).all():
         put("ci_run", str(run.id), run.name, run.conclusion or run.status, {"status": run.status, "conclusion": run.conclusion, "html_url": run.html_url})
 
     docs = _document_groups(db, repo_id)
